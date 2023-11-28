@@ -65,6 +65,21 @@ const Navbar = () => {
                 ToDo App
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to='/post'>
+                Create Post
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to='/chat'>
+                Chat Box
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to='/listpost'>
+                List Post
+              </NavLink>
+            </li>
           </ul>
           <form className="d-flex" role="search">
             <input
