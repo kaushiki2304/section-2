@@ -15,15 +15,23 @@ import Chat from './components/Chat';
 import Listpost from './components/Listpost';
 import {Toaster} from 'react-hot-toast';
 import Post from './components/Post';
+import {SnackbarProvider} from 'notistack';
+import ManageUser from './components/ManageUser';
+import UpdateUser from './components/UpdateUser';
+import Feedback from './components/Feedback';
+import { AppProvider } from './AppContext';
+
 
 
 const App = () => {
   return (
     <div>
+      <SnackbarProvider anchorOrigin={{horizontal:'right', vertical:'top'}} maxSnack={3}>
       <Toaster position='top-center'/>
       
       <BrowserRouter>
-      <Navbar/>
+      <AppProvider>
+      <Navbar cartItems={10}/>
       {/* <Link to='/'>Home Page</Link>
       <Link to='/login'>Login Page</Link>
       <Link to='/signup'>Signup</Link> */}
@@ -40,13 +48,17 @@ const App = () => {
           <Route path='/chat' element={<Chat />} />
           <Route path='/listpost' element={<Listpost />} />
           <Route path='/post' element={<Post />} />
+          <Route path='/manageuser' element={<ManageUser />} />
+          <Route path='/updateuser/:id' element={<UpdateUser/>}/>
+          <Route path='/feedback/' element={<Feedback/>}/>
 
 
 
 
          </Routes>
-       
+         </AppProvider>
        </BrowserRouter>
+       </SnackbarProvider>
     </div>
    //components with capital letter, tags with small letters
    //route are create individual components

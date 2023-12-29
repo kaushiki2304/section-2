@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
+import useAppContext from '../AppContext';
 
-const Navbar = () => {
+const Navbar = ({cartItems}) => {
+
+const [currentUser, setCurrentUser] = useState(
+
+//parse convert json data in java script
+
+ JSON.parse(sessionStorage.getItem('user'))
+);
+
+const {LoggedIn,logout}= useAppContext();
+
   return (
 
     
@@ -28,11 +39,7 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
-            </li>
+            
             <li className="nav-item">
               <NavLink className="nav-link" to="/contactus">
                 Contactus
@@ -44,11 +51,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             
-            <li className="nav-item">
-              <NavLink className="nav-link" to='/signup'>
-                Signup
-              </NavLink>
-            </li>
+            
 
             <li className="nav-item">
               <NavLink className="nav-link" to='/event'>
@@ -80,18 +83,42 @@ const Navbar = () => {
                 List Post
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to='/manageuser'>
+                Manage User
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to='/feedback'>
+                Feedback
+              </NavLink>
+            </li>
+            <h3>{cartItems}</h3>
+    
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+
+         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+           {
+            LoggedIn ?(
+              <button className='btn btn-danger' onClick={logout}>Logout</button>
+            ):
+            (<>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to='/signup'>
+                Signup
+              </NavLink>
+            </li>
+            
+            
+            </>)
+           }
+         </ul>
+
         </div>
       </div>
     </nav>

@@ -20,9 +20,21 @@ const Post = () => {
       content:'',
       image:''
     },
-    onSubmit:(values, {resetPost}) => {
+    onSubmit:async(values, {resetPost}) => {
       // alert(JSON.stringify(values));
       console.log(values);
+      const response = await fetch('http://localhost:5000/user/add',{
+        method:'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type':'appication/json'
+        }
+
+      });
+      // successful- (200-299),redirection-(300-399), client side error-(400-499), server error-(500-599) 
+
+      console.log(response.status);
+
       // resetPost();
       toast.success('Post Added');
     },

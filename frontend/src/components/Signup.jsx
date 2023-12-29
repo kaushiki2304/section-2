@@ -1,4 +1,5 @@
 import {useFormik} from 'formik';
+import { enqueueSnackbar } from 'notistack';
 import React from 'react'
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
@@ -27,11 +28,35 @@ const Signup = () => {
       password:'',
       confirm:''
     },
-    onSubmit:(values, {resetForm}) => {
+    onSubmit: async (values, {resetForm}) => {
       // alert(JSON.stringify(values));
       console.log(values);
-      // resetForm();
-      toast.success('Form Submitted Successfully');
+
+      //send request to backend or rest API
+      //to convert javascript in json  JSON.stringify(values)
+      //header is case sensitive (data type is json)
+
+      const response = await fetch('http://localhost:5000/user/add',{
+        method:'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type':'application/json'
+        }
+
+      });
+      // successful- (200-299),redirection-(300-399), client side error-(400-499), server error-(500-599) 
+
+      console.log(response.status);
+      console.log(response.statusText);
+
+      if(response.status === 200){
+        enqueueSnackbar('Register successfully',{variant:'success'});
+      }else {
+        enqueueSnackbar('something went wrong',{variant:'error'});
+      }
+
+      // // resetForm();
+      // toast.success('Form Submitted Successfully');
     },
     validationSchema: SignupSchema
   });
